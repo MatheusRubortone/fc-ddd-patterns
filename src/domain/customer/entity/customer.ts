@@ -1,4 +1,7 @@
 import Address from "../value-object/address";
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import CustomerCreatedEvent from "../event/customer-created.event";
+import CustomerAddressChangedEvent from "../event/customer-address-changed.event";
 
 export default class Customer {
   private _id: string;
@@ -6,6 +9,12 @@ export default class Customer {
   private _address!: Address;
   private _active: boolean = false;
   private _rewardPoints: number = 0;
+
+  private static dispatcher = new EventDispatcher();
+
+  static get eventDispatcher(): EventDispatcher {
+    return Customer.dispatcher;
+  }
 
   constructor(id: string, name: string) {
     this._id = id;
